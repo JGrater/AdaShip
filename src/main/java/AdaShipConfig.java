@@ -1,10 +1,18 @@
 package main.java;
+
+import java.util.ArrayList;
+
 class AdaShipConfig {
     
     private static AdaShipConfig config_instance = null;
 
     private static int board_length, board_width; 
 
+    private ArrayList<String[]> fleet = new ArrayList<>();
+
+    public AdaShipConfig() {
+
+    }
 
     public AdaShipConfig(int board_length, int board_width) {
         AdaShipConfig.board_length = board_length;
@@ -14,7 +22,7 @@ class AdaShipConfig {
 
     public static AdaShipConfig getInstance() {
         if (config_instance == null) {
-            config_instance = new AdaShipConfig(board_length,board_width);
+            config_instance = new AdaShipConfig();
         }
         return config_instance;
     }
@@ -33,6 +41,21 @@ class AdaShipConfig {
 
     public void setBoard_width(int width) {
         AdaShipConfig.board_width = width;
+    }
+
+    public ArrayList<String[]> getFleet() {
+        return this.fleet;
+    }
+
+    public void displayFleet() {
+        System.out.println("\nYour fleet:");
+        for (String[] ship : this.fleet) {
+            System.out.println("> " + ship[0] + ", with a health of " + ship[1]);
+        }
+    }
+
+    public void addShip(String[] ship) {
+        this.fleet.add(ship);
     }
 
 }

@@ -30,8 +30,8 @@ public class FileParser {
                 }
 
                 if (splitData[0].equalsIgnoreCase("boat")) {
-                    String[] boats = splitData[1].split(",");
-                    System.out.println("Type: "+boats[0] + ", Size: " + boats[1]);
+                    String[] ship = splitData[1].split(",");
+                    adaShipConfig.addShip(ship);
                 }
 
             }
