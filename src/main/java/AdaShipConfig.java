@@ -8,11 +8,11 @@ class AdaShipConfig {
 
     private static int board_length, board_width; 
 
-    static final int OCEAN = 0, SHIP = 1; // Add bombs/sharks...
+    static final int OCEAN = 0, SHIP = 1, HIT = 2, MISS = 4; // Add bombs/sharks...
 
     private static int[][] grid, enemyGrid;
 
-    private ArrayList<String[]> fleet = new ArrayList<>();
+    private ArrayList<Ship> fleet = new ArrayList<>();
 
     public AdaShipConfig(int board_length, int board_width) {
         AdaShipConfig.board_length = board_length;
@@ -45,7 +45,7 @@ class AdaShipConfig {
         AdaShipConfig.board_width = width;
     }
 
-    public ArrayList<String[]> getFleet() {
+    public ArrayList<Ship> getFleet() {
         return this.fleet;
     }
 
@@ -65,14 +65,7 @@ class AdaShipConfig {
         AdaShipConfig.enemyGrid = grid;
     }
 
-    public void displayFleet() {
-        System.out.println("\nYour fleet:");
-        for (String[] ship : this.fleet) {
-            System.out.println("> " + ship[0] + ", with a health of " + ship[1]);
-        }
-    }
-
-    public void addShip(String[] ship) {
+    public void addShip(Ship ship) {
         this.fleet.add(ship);
     }
 

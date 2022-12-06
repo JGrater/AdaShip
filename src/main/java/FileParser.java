@@ -7,9 +7,16 @@ import java.util.Scanner;
 public class FileParser {
 
     private File fileToParse;
+    private Scanner readScanner;
+    private String data;
+    private String[] splitData, dimensions, ship;
 
     public FileParser(String path) throws FileNotFoundException {
         this.fileToParse = new File(path);
+    }
+
+    public int toInt(String str) {
+        return Integer.parseInt(str);
     }
 
     public void readConfig() {
@@ -17,21 +24,21 @@ public class FileParser {
         AdaShipConfig adaShipConfig = AdaShipConfig.getInstance();
 
         try {
-            Scanner readScanner = new Scanner(fileToParse);
+            readScanner = new Scanner(fileToParse);
             while (readScanner.hasNextLine()) {
-                String data = readScanner.nextLine();
+                data = readScanner.nextLine();
                 
-                String[] splitData = data.split(":");
+                splitData = data.split(":");
 
                 if (splitData[0].equalsIgnoreCase("board")) {
-                    String[] dimensions = splitData[1].split("x");
-                    adaShipConfig.setBoard_length(Integer.parseInt(dimensions[0]));
-                    adaShipConfig.setBoard_width(Integer.parseInt(dimensions[1]));
+                    dimensions = splitData[1].split("x");
+                    adaShipConfig.setBoard_length(toInt(dimensions[0]));
+                    adaShipConfig.setBoard_width(toInt(dimensions[1]));
                 }
 
                 if (splitData[0].equalsIgnoreCase("boat")) {
-                    String[] ship = splitData[1].split(",");
-                    adaShipConfig.addShip(ship);
+                    ship = splitData[1].split(",");
+                    adaShipConfig.addShip(new Ship(ship[0], toInt(ship[1])));
                 }
 
             }
