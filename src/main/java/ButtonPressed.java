@@ -24,9 +24,12 @@ public class ButtonPressed implements ActionListener{
             case AdaShipConfig.OCEAN:
                 button.setBackground(Color.white);
                 button.setEnabled(false);
+                System.out.println("Col: " + col + "Row: "+ row);
                 break;
             case AdaShipConfig.SHIP:
                 button.setBackground(Color.red);
+                button.setEnabled(false);
+                System.out.println("Col: " + col + "Row: "+ row);
                 break;
         }
     }

@@ -9,6 +9,7 @@ public class AdaShip {
         //board.render();
         AdaShipConfig adaShipConfig = AdaShipConfig.getInstance();
         BoardFrame boardFrame = new BoardFrame(adaShipConfig);
+        boardFrame.deployEnemyShip(4);
         boardFrame.render();
     }
 }
