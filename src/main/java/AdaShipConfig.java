@@ -8,21 +8,22 @@ class AdaShipConfig {
 
     private static int board_length, board_width; 
 
+    static final int OCEAN = 0, SHIP = 1; // Add bombs/sharks...
+
+    private static int[][] grid;
+
     private ArrayList<String[]> fleet = new ArrayList<>();
-
-    public AdaShipConfig() {
-
-    }
 
     public AdaShipConfig(int board_length, int board_width) {
         AdaShipConfig.board_length = board_length;
         AdaShipConfig.board_width = board_width;
+        AdaShipConfig.grid = new int[10][10]; // Change
     }
 
 
     public static AdaShipConfig getInstance() {
         if (config_instance == null) {
-            config_instance = new AdaShipConfig();
+            config_instance = new AdaShipConfig(board_length, board_width);
         }
         return config_instance;
     }
@@ -45,6 +46,14 @@ class AdaShipConfig {
 
     public ArrayList<String[]> getFleet() {
         return this.fleet;
+    }
+
+    public int[][] getGrid() {
+        return AdaShipConfig.grid;
+    }
+
+    public void setGrid(int[][] grid) {
+        AdaShipConfig.grid = grid;
     }
 
     public void displayFleet() {

@@ -5,7 +5,10 @@ public class AdaShip {
         //Initialise initialise = new Initialise();
         //initialise.parseConfig();
 
-        Board board = new Board();
-        board.render();
+        //Board board = new Board();
+        //board.render();
+        AdaShipConfig adaShipConfig = AdaShipConfig.getInstance();
+        BoardFrame boardFrame = new BoardFrame(adaShipConfig);
+        boardFrame.render();
     }
 }
