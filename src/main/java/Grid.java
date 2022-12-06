@@ -39,7 +39,8 @@ public class Grid extends JPanel {
                 gridButtons[row][col] = new JButton();
                 gridPanels[row][col].setLayout(new FlowLayout());
                 gridButtons[row][col].setPreferredSize(new Dimension(48,48));
-                if (grid[row][col] == AdaShipConfig.SHIP) {
+                
+                if (!enabled && grid[row][col] == AdaShipConfig.SHIP) {
                     gridButtons[row][col].setBackground(Color.yellow);
                 } else {
                     gridButtons[row][col].setBackground(this.buttonColor);

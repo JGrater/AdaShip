@@ -39,6 +39,7 @@ public class FileParser {
                 if (splitData[0].equalsIgnoreCase("boat")) {
                     ship = splitData[1].split(",");
                     adaShipConfig.addShip(new Ship(ship[0], toInt(ship[1])));
+                    adaShipConfig.addEnemyShip(new Ship(ship[0], toInt(ship[1])));
                 }
 
             }

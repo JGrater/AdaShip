@@ -2,14 +2,11 @@ package main.java;
 
 public class AdaShip {
     public static void main(String args[]) {
-        //Initialise initialise = new Initialise();
-        //initialise.parseConfig();
+        Initialise initialise = new Initialise();
+        initialise.parseConfig();
+        initialise.setup();
+        initialise.launch();
 
-        //Board board = new Board();
-        //board.render();
-        AdaShipConfig adaShipConfig = AdaShipConfig.getInstance();
-        BoardFrame boardFrame = new BoardFrame(adaShipConfig);
-        boardFrame.deployEnemyShip(4);
-        boardFrame.render();
+        
     }
 }

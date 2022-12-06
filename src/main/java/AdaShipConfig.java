@@ -12,13 +12,15 @@ class AdaShipConfig {
 
     private static int[][] grid, enemyGrid;
 
-    private ArrayList<Ship> fleet = new ArrayList<>();
+    private ArrayList<Ship> fleet, enemyFleet;
 
     public AdaShipConfig(int board_length, int board_width) {
         AdaShipConfig.board_length = board_length;
         AdaShipConfig.board_width = board_width;
         AdaShipConfig.grid = new int[10][10]; // Change
         AdaShipConfig.enemyGrid = new int[10][10];
+        this.fleet = new ArrayList<>();
+        this.enemyFleet = new ArrayList<>();
     }
 
 
@@ -49,6 +51,10 @@ class AdaShipConfig {
         return this.fleet;
     }
 
+    public ArrayList<Ship> getEnemyFleet() {
+        return this.enemyFleet;
+    }
+
     public int[][] getGrid() {
         return AdaShipConfig.grid;
     }
@@ -69,4 +75,7 @@ class AdaShipConfig {
         this.fleet.add(ship);
     }
 
+    public void addEnemyShip(Ship ship) {
+        this.enemyFleet.add(ship);
+    }
 }

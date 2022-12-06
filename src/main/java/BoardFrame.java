@@ -9,15 +9,13 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class BoardFrame extends JFrame {
-    AdaShipConfig adaShipConfig;
-    JPanel firingGrid[][], fleetGrid[][], firingPanel, fleetPanel, header, footer;
-    JButton firingButtons[][], fleetButtons[][];
-    JLabel title;
-    Color oceanColour, firingColour, firingButtonColour;
+    private AdaShipConfig adaShipConfig;
+    private JPanel firingPanel, fleetPanel, header, footer;
+    private JLabel title;
+    private Color oceanColour, firingColour, firingButtonColour;
 
     public BoardFrame(AdaShipConfig adaShipConfig) {
         this.adaShipConfig = adaShipConfig;
@@ -37,80 +35,6 @@ public class BoardFrame extends JFrame {
 
     public Font getFont(String name, int style, int size) {
         return new Font(name, style, size);
-    }
-
-    public void deployEnemyShip(int lengthOfShip) {
-        final int UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4; 
-        Random rand = new Random();
-        boolean cont = true, emptySquare = true;
-        int direction;
-        int grid[][] = adaShipConfig.getEnemyGrid(), x, y; // Col , Row
-
-        while(cont) {
-            emptySquare = true;
-            direction = rand.nextInt(1, 5);
-            x = rand.nextInt(10);
-            y = rand.nextInt(10);
-
-            if (direction == UP) {
-                if (y + lengthOfShip <= 9) {
-                    for (int i = y; i < y + lengthOfShip; i++) {
-                        if (grid[i][x] != 0) {
-                            emptySquare = false;
-                        }
-                    }
-                    if (emptySquare) {
-                        for (int i = y; i < y + lengthOfShip; i++) {
-                            grid[i][x] = AdaShipConfig.SHIP;
-                        }
-                        return;
-                    }
-                }
-            } else if (direction == DOWN) {
-                if (y - lengthOfShip >= 0) {
-                    for (int i = y; i > y - lengthOfShip; i--) {
-                        if (grid[i][x] != 0) {
-                            emptySquare = false;
-                        }
-                    }
-                    if (emptySquare) {
-                        for (int i = y; i > y - lengthOfShip; i--) {
-                            grid[i][x] = AdaShipConfig.SHIP;
-                        }
-                        return;
-                    }
-                }
-            } else if (direction == LEFT) {
-                if (x + lengthOfShip <= 9) {
-                    for (int i = x; i < x + lengthOfShip; i++) {
-                        if (grid[y][i] != 0) {
-                            emptySquare = false;
-                        }
-                    }
-                    if (emptySquare) {
-                        for (int i = x; i < x + lengthOfShip; i++) {
-                            grid[y][i] = AdaShipConfig.SHIP;
-                        }
-                        return;
-                    }
-                }
-            } else if (direction == RIGHT) {
-                if (x - lengthOfShip >= 0) {
-                    for (int i = x; i > x - lengthOfShip; i--) {
-                        if (grid[y][i] != 0) {
-                            emptySquare = false;
-                        }
-                    }
-                    if (emptySquare) {
-                        for (int i = x; i > x - lengthOfShip; i--) {
-                            grid[y][i] = AdaShipConfig.SHIP;
-                        }
-                        return;
-                    }
-                } 
-            }
-            
-        }
     }
 
     public void render() {
