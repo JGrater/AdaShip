@@ -2,13 +2,14 @@ package main.java;
 
 public class AdaShip {
     public static void main(String args[]) {
-        /*Initialise initialise = new Initialise();
+        Initialise initialise = new Initialise();
         initialise.parseConfig();
         initialise.setup();
         initialise.launch();
-        */
 
-        MenuFrame menuFrame = new MenuFrame();
+        
+
+       // MenuFrame menuFrame = new MenuFrame();
 
         
     }

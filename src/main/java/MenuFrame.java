@@ -13,10 +13,7 @@ import java.awt.event.ActionListener;
 
 
 import java.awt.*;
-import java.awt.image.*;
 import java.awt.geom.*;
-import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -72,7 +69,7 @@ public class MenuFrame extends JFrame {
 
         buttonPanel.setLayout(getFlowLayout(1, 0, 40));
         buttonPanel.setBackground(Color.red);
-        buttonPanel.setPreferredSize(getDimension(400, 400));
+        buttonPanel.setPreferredSize(getDimension(400, 3050));
         
         newGame.setText("New Game");
         newGame.setFont(getFont("Calibiri", Font.BOLD, 20));
