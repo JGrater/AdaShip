@@ -3,7 +3,6 @@ package main.java;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.util.Random;
 import java.awt.Color;
 import java.awt.BorderLayout;
 
