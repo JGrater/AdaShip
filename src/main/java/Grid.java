@@ -13,35 +13,47 @@ public class Grid extends JPanel {
     private JButton gridButtons[][];
     private Color background, buttonColor;
     private boolean enabled;
-    private int length, width, grid[][];
+    private int rows, cols, grid[][];
 
 
-    public Grid(Color background, Color buttonColor, boolean enabled, int length, int width, int[][] grid) {
+    public Grid(Color background, Color buttonColor, boolean enabled, int rows, int cols, int[][] grid) {
         this.background = background;
         this.buttonColor = buttonColor;
         this.enabled = enabled;
-        this.length = length;
-        this.width = width;
+        this.rows = rows;
+        this.cols = cols;
         this.grid = grid;
-        gridPanels = new JPanel[length][width];
-        gridButtons = new JButton[length][width];
+        gridPanels = new JPanel[rows][cols];
+        gridButtons = new JButton[rows][cols];
 
         setLayout(new FlowLayout(1,-5,-5));
-        setPreferredSize(new Dimension(530, 525));
+        setPreferredSize(getDimension(530, 525));
         setBackground(background);
     }
 
+    public Dimension getDimension(int width, int height) {
+        return new Dimension(width, height);
+    }
+
+    public FlowLayout getFlowLayout() {
+        return new FlowLayout();
+    }
+
+    public FlowLayout getFlowLayout(int align, int hgap, int vgap) {
+        return new FlowLayout(align, hgap, vgap);
+    }
+
     public void build() {
-        for (int row = 0; row < this.length; row++) {
-            for (int col = 0; col < this.width; col++) {                
+        for (int row = 0; row < this.rows; row++) {
+            for (int col = 0; col < this.cols; col++) {                
                 gridPanels[row][col] = new JPanel();
                 gridPanels[row][col].setBackground(this.background);
                 gridButtons[row][col] = new JButton();
-                gridPanels[row][col].setLayout(new FlowLayout());
-                gridButtons[row][col].setPreferredSize(new Dimension(48,48));
+                gridPanels[row][col].setLayout(getFlowLayout());
+                gridButtons[row][col].setPreferredSize(getDimension(48,48)); // Refactor
                 
                 if (!enabled && grid[row][col] == AdaShipConfig.SHIP) {
-                    gridButtons[row][col].setBackground(Color.yellow);
+                    gridButtons[row][col].setBackground(Color.yellow);  // Refactor
                 } else {
                     gridButtons[row][col].setBackground(this.buttonColor);
                 }

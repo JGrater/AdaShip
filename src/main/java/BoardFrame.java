@@ -43,8 +43,8 @@ public class BoardFrame extends JFrame {
         oceanColour = new Color(6,66,115);
         firingColour = Color.cyan;
         firingButtonColour = Color.black;
-        firingPanel = new Grid(this.firingColour, this.firingButtonColour, true, 10, 10, adaShipConfig.getEnemyGrid()); //Change length/width
-        fleetPanel = new Grid(this.oceanColour, this.oceanColour, false, 10, 10, adaShipConfig.getGrid());
+        firingPanel = new Grid(this.firingColour, this.firingButtonColour, true, adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols(), adaShipConfig.getEnemyGrid()); //Change length/width
+        fleetPanel = new Grid(this.oceanColour, this.oceanColour, false, adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols(), adaShipConfig.getGrid());
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(getBorderLayout());

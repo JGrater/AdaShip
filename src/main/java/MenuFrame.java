@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.border.AbstractBorder;
 
 public class MenuFrame extends JFrame {
+    private AdaShipConfig adaShipConfig;
     private JLabel label;
     private JPanel menuPanel;
 
@@ -41,6 +42,7 @@ public class MenuFrame extends JFrame {
     }
 
     public MenuFrame() {
+        adaShipConfig = AdaShipConfig.getInstance();
         menuPanel = new JPanel();
         JPanel buttonPanel = new JPanel();
         JButton newGame = new JButton();

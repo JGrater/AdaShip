@@ -6,45 +6,59 @@ class AdaShipConfig {
     
     private static AdaShipConfig config_instance = null;
 
-    private static int board_length, board_width; 
+    private static int board_rows, board_cols, gameState; 
 
     static final int OCEAN = 0, SHIP = 1, HIT = 2, MISS = 4; // Add bombs/sharks...
+
+    static final int NOT_STARTED = 0, PLAYER_TURN = 1, ENEMY_TURN = 2, WIN = 3, LOSS = 4, ENEMY_WIN = 4, ENEMY_LOSS = 3;
 
     private static int[][] grid, enemyGrid;
 
     private ArrayList<Ship> fleet, enemyFleet;
 
-    public AdaShipConfig(int board_length, int board_width) {
-        AdaShipConfig.board_length = board_length;
-        AdaShipConfig.board_width = board_width;
-        AdaShipConfig.grid = new int[10][10]; // Change
-        AdaShipConfig.enemyGrid = new int[10][10];
+    public AdaShipConfig(int board_rows, int board_cols) {
+        AdaShipConfig.board_rows = board_rows;
+        AdaShipConfig.board_cols = board_cols;
+        AdaShipConfig.gameState = AdaShipConfig.NOT_STARTED;
+        AdaShipConfig.grid = new int[board_rows][board_cols]; //Change back
+        AdaShipConfig.enemyGrid = new int[board_rows][board_cols];
         this.fleet = new ArrayList<>();
         this.enemyFleet = new ArrayList<>();
     }
 
-
     public static AdaShipConfig getInstance() {
         if (config_instance == null) {
-            config_instance = new AdaShipConfig(board_length, board_width);
+            config_instance = new AdaShipConfig(AdaShipConfig.board_rows, AdaShipConfig.board_cols);
         }
         return config_instance;
     }
 
-    public int getBoard_length() {
-        return AdaShipConfig.board_length;
+    public int getBoard_rows() {
+        return AdaShipConfig.board_rows;
     }
 
-    public int getBoard_width() {
-        return AdaShipConfig.board_width;
+    public int getBoard_cols() {
+        return AdaShipConfig.board_cols;
     }
 
-    public void setBoard_length(int length) {
-        AdaShipConfig.board_length = length;
+    public void setBoard_rows(int rows) {
+        AdaShipConfig.board_rows = rows;
+        AdaShipConfig.grid = new int[rows][AdaShipConfig.board_cols];
+        AdaShipConfig.enemyGrid = new int[rows][AdaShipConfig.board_cols];
     }
 
-    public void setBoard_width(int width) {
-        AdaShipConfig.board_width = width;
+    public void setBoard_cols(int cols) {
+        AdaShipConfig.board_cols = cols;
+        AdaShipConfig.grid = new int[AdaShipConfig.board_rows][cols];
+        AdaShipConfig.enemyGrid = new int[AdaShipConfig.board_rows][cols];
+    }
+
+    public int getGameState() {
+        return AdaShipConfig.gameState;
+    }
+
+    public void setGameState(int state) {
+        AdaShipConfig.gameState = state;
     }
 
     public ArrayList<Ship> getFleet() {

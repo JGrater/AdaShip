@@ -32,8 +32,8 @@ public class FileParser {
 
                 if (splitData[0].equalsIgnoreCase("board")) {
                     dimensions = splitData[1].split("x");
-                    adaShipConfig.setBoard_length(toInt(dimensions[0]));
-                    adaShipConfig.setBoard_width(toInt(dimensions[1]));
+                    adaShipConfig.setBoard_rows(toInt(dimensions[0]));
+                    adaShipConfig.setBoard_cols(toInt(dimensions[1]));
                 }
 
                 if (splitData[0].equalsIgnoreCase("boat")) {

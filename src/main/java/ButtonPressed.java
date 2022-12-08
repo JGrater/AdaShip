@@ -19,6 +19,46 @@ public class ButtonPressed implements ActionListener{
             
     }
 
+
+//maybe move to game
+    public void recordHit(int[] coords) {
+        for (int i = 0; i < adaShipConfig.getEnemyFleet().size(); i++) {
+            if (adaShipConfig.getEnemyFleet().get(i).checkHit(coords)) {
+                System.out.println("HIT!!");
+                if (adaShipConfig.getEnemyFleet().get(i).checkDestroyed()) {
+                    System.out.println("SHIP SUNK!!!");
+                }
+            }
+        }
+    }
+
+    // Move to computers go 
+    public void checkLoss() {
+        int destroyedShips = 0;
+        for (int i = 0; i < adaShipConfig.getFleet().size(); i++) {
+            if (adaShipConfig.getFleet().get(i).isDestroyed()) {
+                destroyedShips++;
+            }
+        }
+        if (destroyedShips == adaShipConfig.getFleet().size()) {
+            adaShipConfig.setGameState(AdaShipConfig.LOSS);
+            System.out.println("YOU HAVE LOST!!");
+        } 
+    }
+
+    public void checkWin() {
+        int destroyedShips = 0;
+        for (int i = 0; i < adaShipConfig.getEnemyFleet().size(); i++) {
+            if (adaShipConfig.getEnemyFleet().get(i).isDestroyed()) {
+                destroyedShips++;
+            }
+        }
+        if (destroyedShips == adaShipConfig.getEnemyFleet().size()) {
+            adaShipConfig.setGameState(AdaShipConfig.WIN);
+            System.out.println("YOU HAVE WON!!");
+        } 
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         adaShipConfig = AdaShipConfig.getInstance();
@@ -36,15 +76,8 @@ public class ButtonPressed implements ActionListener{
                 button.setEnabled(false);
                 grid[row][col] = AdaShipConfig.HIT;
                 adaShipConfig.setEnemyGrid(grid);
-                // Need to know which ship is hit, then lower its health by 1
-                for (int i = 0; i < adaShipConfig.getEnemyFleet().size(); i++) {
-                    if (adaShipConfig.getEnemyFleet().get(i).checkHit(coords)) {
-                        System.out.println("HIT!!");
-                        if (adaShipConfig.getEnemyFleet().get(i).checkDestroyed()) {
-                            System.out.println("SHIP SUNK!!!");
-                        }
-                    }
-                }
+                recordHit(coords);
+                checkWin();
                 System.out.println("Col: " + col + "Row: "+ row);
                 break;
         }

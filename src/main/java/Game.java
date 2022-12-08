@@ -1,15 +1,12 @@
 package main.java;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
     Random rand;
     final int UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4; 
-    AdaShipConfig adaShipConfig = AdaShipConfig.getInstance();
-    ArrayList<Ship> fleet = adaShipConfig.getFleet(); 
     
-    public void deployShip(Ship ship, int[][] grid) {
+    public void deployShip(Ship ship, int[][] grid, int rows, int cols) {
         rand = new Random();
         boolean cont = true, emptySquare = true;
         int direction;
@@ -18,11 +15,11 @@ public class Game {
         while(cont) {
             emptySquare = true;
             direction = rand.nextInt(1, 5);
-            x = rand.nextInt(10);
-            y = rand.nextInt(10);
+            x = rand.nextInt(rows);
+            y = rand.nextInt(cols);
 
             if (direction == UP) {
-                if (y + ship.getHealth() <= 9) {
+                if (y + ship.getHealth() <= rows-1) {
                     for (int i = y; i < y + ship.getHealth(); i++) {
                         if (grid[i][x] != AdaShipConfig.OCEAN) {
                             emptySquare = false;
@@ -54,7 +51,7 @@ public class Game {
                     }
                 }
             } else if (direction == LEFT) {
-                if (x + ship.getHealth() <= 9) {
+                if (x + ship.getHealth() <= cols-1) {
                     for (int i = x; i < x + ship.getHealth(); i++) {
                         if (grid[y][i] != AdaShipConfig.OCEAN) {
                             emptySquare = false;

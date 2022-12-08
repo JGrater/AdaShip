@@ -24,8 +24,8 @@ public class Initialise {
         adaShipConfig = AdaShipConfig.getInstance();
         game = new Game();
         for (int i = 0; i < adaShipConfig.getFleet().size(); i++) {
-            game.deployShip(adaShipConfig.getFleet().get(i), adaShipConfig.getGrid());
-            game.deployShip(adaShipConfig.getEnemyFleet().get(i), adaShipConfig.getEnemyGrid());
+            game.deployShip(adaShipConfig.getFleet().get(i), adaShipConfig.getGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
+            game.deployShip(adaShipConfig.getEnemyFleet().get(i), adaShipConfig.getEnemyGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
         }
         
     }
