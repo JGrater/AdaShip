@@ -12,7 +12,8 @@ import javax.swing.JPanel;
 
 public class BoardFrame extends JFrame {
     private AdaShipConfig adaShipConfig;
-    private JPanel firingPanel, fleetPanel, header, footer;
+    private FiringPanel firingPanel, enemyFiringPanel;
+    private JPanel header, footer;
     private JLabel title;
     private Color oceanColour, firingColour, firingButtonColour;
 
@@ -43,8 +44,11 @@ public class BoardFrame extends JFrame {
         oceanColour = new Color(6,66,115);
         firingColour = Color.cyan;
         firingButtonColour = Color.black;
-        firingPanel = new Grid(this.firingColour, this.firingButtonColour, true, adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols(), adaShipConfig.getEnemyGrid()); //Change length/width
-        fleetPanel = new Grid(this.oceanColour, this.oceanColour, false, adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols(), adaShipConfig.getGrid());
+        firingPanel = new FiringPanel(this.firingColour, this.firingButtonColour, true, adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols(), adaShipConfig.getEnemyGrid());
+        enemyFiringPanel = new FiringPanel(this.oceanColour, this.oceanColour, false, adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols(), adaShipConfig.getGrid());
+        
+        adaShipConfig.setFiringPanel(firingPanel);
+        adaShipConfig.setEnemyFiringPanel(enemyFiringPanel);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(getBorderLayout());
@@ -65,15 +69,15 @@ public class BoardFrame extends JFrame {
         firingPanel.setPreferredSize(getDimension(530, 525));
         firingPanel.setBackground(firingColour);
 
-        fleetPanel.setLayout(getFlowLayout(1, -5, -5));
-        fleetPanel.setPreferredSize(getDimension(530, 525));
-        fleetPanel.setBackground(oceanColour);
+        enemyFiringPanel.setLayout(getFlowLayout(1, -5, -5));
+        enemyFiringPanel.setPreferredSize(getDimension(530, 525));
+        enemyFiringPanel.setBackground(oceanColour);
 
-        ((Grid) firingPanel).build();
-        ((Grid) fleetPanel).build();
+        firingPanel.build();
+        enemyFiringPanel.build();
 
         add(firingPanel, BorderLayout.WEST);
-        add(fleetPanel, BorderLayout.EAST);
+        add(enemyFiringPanel, BorderLayout.EAST);
         add(header, BorderLayout.NORTH);
         add(footer, BorderLayout.SOUTH);
         pack();                   

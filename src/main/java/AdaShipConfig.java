@@ -16,6 +16,8 @@ class AdaShipConfig {
 
     private ArrayList<Ship> fleet, enemyFleet;
 
+    private FiringPanel shipPanel, enemyShipPanel;
+
     public AdaShipConfig(int board_rows, int board_cols) {
         AdaShipConfig.board_rows = board_rows;
         AdaShipConfig.board_cols = board_cols;
@@ -91,5 +93,21 @@ class AdaShipConfig {
 
     public void addEnemyShip(Ship ship) {
         this.enemyFleet.add(ship);
+    }
+
+    public FiringPanel getFiringPanel() {
+        return this.shipPanel;
+    }
+
+    public void setFiringPanel(FiringPanel shipPanel) {
+        this.shipPanel = shipPanel;
+    }
+
+    public FiringPanel getEnemyFiringPanel() {
+        return this.enemyShipPanel;
+    }
+
+    public void setEnemyFiringPanel(FiringPanel shipPanel) {
+        this.enemyShipPanel = shipPanel;
     }
 }

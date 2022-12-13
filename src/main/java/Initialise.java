@@ -6,7 +6,13 @@ public class Initialise {
     
     AdaShipConfig adaShipConfig;
     BoardFrame boardFrame;
-    Game game;
+    Game gameplay;
+
+    public Initialise() {
+        parseConfig();
+        adaShipConfig = AdaShipConfig.getInstance();
+        this.gameplay = new Game(adaShipConfig);
+    }
 
     public void parseConfig() {
         FileParser fileParser;
@@ -21,13 +27,10 @@ public class Initialise {
     }
 
     public void setup() {
-        adaShipConfig = AdaShipConfig.getInstance();
-        game = new Game();
         for (int i = 0; i < adaShipConfig.getFleet().size(); i++) {
-            game.deployShip(adaShipConfig.getFleet().get(i), adaShipConfig.getGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
-            game.deployShip(adaShipConfig.getEnemyFleet().get(i), adaShipConfig.getEnemyGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
+            gameplay.deployShip(adaShipConfig.getFleet().get(i), adaShipConfig.getGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
+            gameplay.deployShip(adaShipConfig.getEnemyFleet().get(i), adaShipConfig.getEnemyGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
         }
-        
     }
 
     public void launch() {

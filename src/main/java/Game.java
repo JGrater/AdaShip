@@ -1,10 +1,77 @@
 package main.java;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
     Random rand;
     final int UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4; 
+    int state;
+    AdaShipConfig adaShipConfig;
+    BoardFrame boardFrame;
+    Enemy enemy;
+    Player player;
+
+    public Game(AdaShipConfig adaShipConfig) {
+        this.adaShipConfig = adaShipConfig;
+        player = new Player(adaShipConfig);
+        enemy = new Enemy(adaShipConfig, this);
+    }
+
+    public void endTurn() {
+        int state = adaShipConfig.getGameState();
+        switch(state) {
+            case AdaShipConfig.PLAYER_TURN:
+            System.out.println("Player Taking turn");
+                player.completeTurn();
+                break; 
+            case AdaShipConfig.ENEMY_TURN: 
+                System.out.println("Enemy Taking turn");
+                enemy.completeTurn();
+                break;
+        }
+    }
+
+    public void recordHit(int[] coords, ArrayList<Ship> fleet) {
+        for (int i = 0; i < fleet.size(); i++) {
+            if (fleet.get(i).checkHit(coords)) {
+                System.out.println("HIT!!");
+                if (fleet.get(i).checkDestroyed()) {
+                    System.out.println("SHIP SUNK!!!");
+                }
+            }
+        }
+    }
+
+    public boolean checkLoss(ArrayList<Ship> fleet) {
+        boolean loss = false;
+        int destroyedShips = 0;
+        for (int i = 0; i < fleet.size(); i++) {
+            if (fleet.get(i).isDestroyed()) {
+                destroyedShips++;
+            }
+        }
+        if (destroyedShips == fleet.size()) {
+            loss = true;
+            System.out.println("YOU HAVE LOST!!");
+        }
+        return loss;
+    }
+    // Combine with above
+    public boolean checkWin(ArrayList<Ship> fleet) {
+        boolean win = false;
+        int destroyedShips = 0;
+        for (int i = 0; i < fleet.size(); i++) {
+            if(fleet.get(i).isDestroyed()) {
+                destroyedShips++;
+            }
+        }
+        if (destroyedShips == fleet.size()) {
+            win = true;
+            System.out.println("YOU HAVE WON!!");
+        } 
+        return win;
+    }
     
     public void deployShip(Ship ship, int[][] grid, int rows, int cols) {
         rand = new Random();
