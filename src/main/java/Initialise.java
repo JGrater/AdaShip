@@ -3,15 +3,15 @@ package main.java;
 import java.io.FileNotFoundException;
 
 public class Initialise {
-    
     AdaShipConfig adaShipConfig;
-    BoardFrame boardFrame;
+    MenuFrame menuFrame;
     Game gameplay;
 
     public Initialise() {
         parseConfig();
         adaShipConfig = AdaShipConfig.getInstance();
         this.gameplay = new Game(adaShipConfig);
+
     }
 
     public void parseConfig() {
@@ -34,7 +34,6 @@ public class Initialise {
     }
 
     public void launch() {
-        boardFrame = new BoardFrame(adaShipConfig);
-        boardFrame.render();
+        menuFrame = new MenuFrame(adaShipConfig);
     }
 }

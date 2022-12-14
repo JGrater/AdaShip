@@ -52,7 +52,6 @@ public class BoardFrame extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(getBorderLayout());
-        setLocationRelativeTo(null);
         setVisible(true);
         setTitle("AdaShip");
         setResizable(true); //false
@@ -80,7 +79,8 @@ public class BoardFrame extends JFrame {
         add(enemyFiringPanel, BorderLayout.EAST);
         add(header, BorderLayout.NORTH);
         add(footer, BorderLayout.SOUTH);
-        pack();                   
+        pack();     
+        setLocationRelativeTo(null);              
     }
 
 }

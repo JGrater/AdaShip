@@ -5,11 +5,6 @@ public class AdaShip {
         Initialise initialise = new Initialise();
         initialise.setup();
         initialise.launch();
-
-        
-
-       //MenuFrame menuFrame = new MenuFrame();
-
         
     }
 }
