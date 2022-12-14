@@ -17,39 +17,153 @@ public class Enemy {
         this.rand = new Random();
     }
  
+    public int[] getCoords(int[][] grid) {
+        int[] coords = {rand.nextInt(adaShipConfig.getBoard_rows()), rand.nextInt(adaShipConfig.getBoard_cols())};
+        boolean validDirection = true;
+
+        int places = 1;
+        for (int row = 0; row < adaShipConfig.getBoard_rows(); row++) {
+            for (int col = 0; col < adaShipConfig.getBoard_cols(); col++) {
+
+                if (grid[row][col] == AdaShipConfig.HIT) {
+                    while (validDirection) { // DOWN
+                        System.out.println("Going down by: " +places);
+                        if (row + places < adaShipConfig.getBoard_rows()) {
+                            switch (grid[row + places][col]) {
+                                case AdaShipConfig.HIT:
+                                    places++;
+                                    break;
+                                case AdaShipConfig.MISS:
+                                    validDirection = false;
+                                    break;
+                                default:
+                                    coords[0] = row + places;
+                                    coords[1] = col;
+                                    System.out.println("row: "+row + "  col: " + col);
+                                    return coords;
+                            }
+                        } else {
+                            validDirection = false;
+                        }
+                    }
+
+                    validDirection = true;
+                    places = 1;
+                    
+                    while (validDirection) { // UP
+                        System.out.println("Going up by: " +places);
+                        if (row - places >= 0) {
+                            switch (grid[row - places][col]) {
+                                case AdaShipConfig.HIT:
+                                    places++;
+                                    break;
+                                case AdaShipConfig.MISS:
+                                    validDirection = false;
+                                    break;
+                                default:
+                                    coords[0] = row - places;
+                                    coords[1] = col;
+                                    System.out.println("row: "+row + "  col: " + col);
+                                    return coords;
+                            }
+                        } else {
+                            validDirection = false;
+                        }
+                    }
+
+                    validDirection = true;
+                    places = 1;
+                    
+                    while (validDirection) { // RIGHT
+                        System.out.println("Going right by: " +places);
+                        if (col + places < adaShipConfig.getBoard_cols()) {
+                            switch (grid[row][col + places]) {
+                                case AdaShipConfig.HIT:
+                                    places++;
+                                    break;
+                                case AdaShipConfig.MISS:
+                                    validDirection = false;
+                                    break;
+                                default:
+                                    coords[0] = row;
+                                    coords[1] = col + places;
+                                    System.out.println("row: "+row + "  col: " + col);
+                                    return coords;
+                            }
+                        } else {
+                            validDirection = false;
+                        }
+                    }
+
+                    validDirection = true;
+                    places = 1;
+                    
+                    while (validDirection) { // LEFT
+                        System.out.println("Going left by: " +places);
+                        if (col - places >= 0) {
+                            switch (grid[row][col - places]) {
+                                case AdaShipConfig.HIT:
+                                    places++;
+                                    break;
+                                case AdaShipConfig.MISS:
+                                    validDirection = false;
+                                    break;
+                                default:
+                                    coords[0] = row;
+                                    coords[1] = col - places;
+                                    System.out.println("row: "+row + "  col: " + col);
+                                    return coords;
+                            }
+                        } else {
+                            validDirection = false;
+                        }
+                    }
+
+                    validDirection = true;
+                    places = 1;
+                }
+            } 
+        }
+        boolean valid = false;
+        while (valid == false) {
+            if (grid[coords[0]][coords[1]] != AdaShipConfig.HIT && grid[coords[0]][coords[1]] != AdaShipConfig.MISS) {
+                valid = true;
+            } else {
+                coords[0] = rand.nextInt(adaShipConfig.getBoard_rows());
+                coords[1] = rand.nextInt(adaShipConfig.getBoard_cols());
+            }
+        }
+        return coords;
+    }
+    
+
     public void completeTurn() {
         boolean valid = false;
         while (valid == false) {
-            int row = rand.nextInt(adaShipConfig.getBoard_rows());
-            int col = rand.nextInt(adaShipConfig.getBoard_cols());
-            JButton button = adaShipConfig.getEnemyFiringPanel().getGridButtons()[row][col];
             int[][] grid = adaShipConfig.getGrid();
-            if (grid[row][col] != AdaShipConfig.HIT && grid[row][col] != AdaShipConfig.MISS) {
-                fire(row, col, button, grid);
-                valid = true;
-            }
+            int[] coords = getCoords(grid);
+            JButton button = adaShipConfig.getEnemyFiringPanel().getGridButtons()[coords[0]][coords[1]];
+            fire(coords, button, grid);
+            valid = true;
         }
     }
    
-    public void fire(int row, int col, JButton button, int[][] grid) {
+    public void fire(int[] coords, JButton button, int[][] grid) {
+        // Add a sleeper/timer
         
-        int[] coords = {row, col};
-        switch(grid[row][col]) {
+        switch(grid[coords[0]][coords[1]]) {
             case AdaShipConfig.OCEAN:
                 button.setBackground(Color.white);
                 button.setEnabled(false);
-                grid[row][col] = AdaShipConfig.MISS;
+                grid[coords[0]][coords[1]] = AdaShipConfig.MISS;
                 adaShipConfig.setGrid(grid);
-                System.out.println("ENEMY - Col: " + col + "Row: "+ row);
                 break;
             case AdaShipConfig.SHIP:
                 button.setBackground(Color.red);
                 button.setEnabled(false);
-                grid[row][col] = AdaShipConfig.HIT;
+                grid[coords[0]][coords[1]] = AdaShipConfig.HIT;
                 adaShipConfig.setGrid(grid);
-                gameplay.recordHit(coords, adaShipConfig.getFleet());
-                
-                System.out.println("ENEMY - Col: " + col + "Row: "+ row);
+                gameplay.recordHit(coords, adaShipConfig.getFleet());                
                 break;
         }
         if (!gameplay.checkWin(adaShipConfig.getFleet())) {
