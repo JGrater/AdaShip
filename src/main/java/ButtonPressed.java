@@ -13,7 +13,7 @@ public class ButtonPressed implements ActionListener{
     JButton button;
     Game gameplay;
 
-    public ButtonPressed(int row, int column, JButton button, int[][] grid) {
+    public ButtonPressed(int row, int column, JButton button, int[][] grid) { //TODO Misleading name
         this.row = row;
         this.col = column;
         this.button = button;

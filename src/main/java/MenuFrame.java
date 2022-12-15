@@ -3,22 +3,17 @@ package main.java;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 
 
-import java.awt.*;
-import java.awt.geom.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.AbstractBorder;
 
 public class MenuFrame extends JFrame {
     private AdaShipConfig adaShipConfig;
@@ -44,26 +39,25 @@ public class MenuFrame extends JFrame {
     public MenuFrame(AdaShipConfig adaShipConfig) {
         this.adaShipConfig = adaShipConfig;
         menuPanel = new JPanel();
+        NewGame newGameMenu = new NewGame();
         JPanel buttonPanel = new JPanel();
         JButton newGame = new JButton();
         JButton exit = new JButton();
         label = new JLabel();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(getFlowLayout(1, 0, 30));
+        getContentPane().setLayout(getFlowLayout(1, 0, 150));
         setVisible(true);
         setTitle("AdaShip");
         setResizable(true);
-        setPreferredSize(getDimension(600, 600));
+        setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         getContentPane().setBackground(Color.cyan);
 
         menuPanel.setPreferredSize(getDimension(500,500));
         menuPanel.setLayout(getFlowLayout(1, 0, 30));
         menuPanel.setBackground(Color.red);
-        // menuPanel.setVisible(false);
         label.setFont(getFont("Calibri", Font.PLAIN, 50));
         label.setText("AdaShips");
-        
 
         buttonPanel.setLayout(getFlowLayout(1, 0, 40));
         buttonPanel.setBackground(Color.red);
@@ -77,9 +71,12 @@ public class MenuFrame extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                /*dispose();
                 BoardFrame boardFrame = new BoardFrame(AdaShipConfig.getInstance());
-                boardFrame.render();
+                boardFrame.render();*/
+                menuPanel.setVisible(false);
+                newGameMenu.setVisible(true);
+                
             }
             
         });
@@ -103,6 +100,7 @@ public class MenuFrame extends JFrame {
         menuPanel.add(label);
         menuPanel.add(buttonPanel);
         getContentPane().add(menuPanel);
+        getContentPane().add(newGameMenu);
         pack();
         setLocationRelativeTo(null);
     }
