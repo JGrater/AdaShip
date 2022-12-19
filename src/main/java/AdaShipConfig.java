@@ -2,6 +2,12 @@ package main.java;
 
 import java.util.ArrayList;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Dimension;
+import java.awt.Color;
+
 class AdaShipConfig {
     
     private static AdaShipConfig config_instance = null;
@@ -11,6 +17,8 @@ class AdaShipConfig {
     static final int OCEAN = 0, SHIP = 1, HIT = 2, MISS = 4; // Add bombs/sharks...
 
     static final int NOT_STARTED = 0, PLAYER_TURN = 1, ENEMY_TURN = 2, WIN = 3, LOSS = 4, ENEMY_WIN = 4, ENEMY_LOSS = 3;
+
+    static final Color OCEAN_COLOR = new Color(6,66,115), FIRING_COLOR = Color.cyan, BUTTON_COLOR = Color.black, HIT_COLOR = Color.red, MISS_COLOR = Color.white, SHIP_COLOR = Color.yellow;
 
     private static int[][] grid, enemyGrid;
 
@@ -33,6 +41,26 @@ class AdaShipConfig {
             config_instance = new AdaShipConfig(AdaShipConfig.board_rows, AdaShipConfig.board_cols);
         }
         return config_instance;
+    }
+
+    public static Dimension getDimension(int width, int height) {
+        return new Dimension(width, height);
+    }
+
+    public static FlowLayout getFlowLayout() {
+        return new FlowLayout();
+    }
+
+    public static FlowLayout getFlowLayout(int align, int hgap, int vgap) {
+        return new FlowLayout(align, hgap, vgap);
+    }
+
+    public static BorderLayout getBorderLayout() {
+        return new BorderLayout();
+    }
+
+    public static Font getFont(String name, int style, int size) {
+        return new Font(name, style, size);
     }
 
     public int getBoard_rows() {

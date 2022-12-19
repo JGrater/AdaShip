@@ -3,8 +3,6 @@ package main.java;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Color;
 
 public class FiringPanel extends JPanel {
@@ -24,21 +22,9 @@ public class FiringPanel extends JPanel {
         this.gridPanels = new JPanel[rows][cols];
         this.gridButtons = new JButton[rows][cols];
 
-        setLayout(new FlowLayout(1,-5,-5));
-        setPreferredSize(getDimension(530, 525));
+        setLayout(AdaShipConfig.getFlowLayout(1,-5,-5));
+        setPreferredSize(AdaShipConfig.getDimension(530, 525));
         setBackground(background);
-    }
-
-    public Dimension getDimension(int width, int height) {
-        return new Dimension(width, height);
-    }
-
-    public FlowLayout getFlowLayout() {
-        return new FlowLayout();
-    }
-
-    public FlowLayout getFlowLayout(int align, int hgap, int vgap) {
-        return new FlowLayout(align, hgap, vgap);
     }
 
     public JButton[][] getGridButtons() {
@@ -73,20 +59,19 @@ public class FiringPanel extends JPanel {
                 gridPanels[row][col] = new JPanel();
                 gridPanels[row][col].setBackground(this.background);
                 gridButtons[row][col] = new JButton();
-                gridPanels[row][col].setLayout(getFlowLayout());
-                gridButtons[row][col].setPreferredSize(getDimension(48,48)); // Refactor
+                gridPanels[row][col].setLayout(AdaShipConfig.getFlowLayout());
+                gridButtons[row][col].setPreferredSize(AdaShipConfig.getDimension(48,48)); // Refactor
                 
                 if (!enabled && grid[row][col] == AdaShipConfig.SHIP) {
-                    gridButtons[row][col].setBackground(Color.yellow);  // Refactor
+                    gridButtons[row][col].setBackground(AdaShipConfig.SHIP_COLOR);  // Refactor
                 } else {
                     gridButtons[row][col].setBackground(this.buttonColor);
                 }
                 gridButtons[row][col].setEnabled(this.enabled);
-                gridButtons[row][col].addActionListener(new ButtonPressed(row, col, gridButtons[row][col], grid));
+                gridButtons[row][col].addActionListener(new FiringPressed(row, col, gridButtons[row][col], grid));
                 gridPanels[row][col].add(gridButtons[row][col]);
                 add(gridPanels[row][col]);
             }
         }
     }
-
 }

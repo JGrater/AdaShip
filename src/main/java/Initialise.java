@@ -34,6 +34,6 @@ public class Initialise {
     }
 
     public void launch() {
-        menuFrame = new MenuFrame(adaShipConfig);
+        menuFrame = new MenuFrame();
     }
 }

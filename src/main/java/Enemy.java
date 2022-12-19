@@ -10,15 +10,17 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.Timer;
 
-public class Enemy {
-    AdaShipConfig adaShipConfig;
-    Game gameplay;
-    Random rand;
+public class Enemy implements ActionListener{
+    private AdaShipConfig adaShipConfig;
+    private Game gameplay;
+    private Random rand;
+    private int grid[][], gridCoordinates[];
+    private JButton buttonPressed;
 
     public Enemy(AdaShipConfig adaShipConfig, Game game) {
         this.adaShipConfig = adaShipConfig;
         this.gameplay = game;
-        this.rand = new Random();
+        rand = new Random();
     }
 
     public int[] getCoords(int[][] grid) {
@@ -47,7 +49,6 @@ public class Enemy {
                                                 default:
                                                     coords[0] = row - places;
                                                     coords[1] = col;
-                                                    System.out.println("row: "+row + "  col: " + col);
                                                     return coords;
                                             }
                                         } else {
@@ -70,7 +71,6 @@ public class Enemy {
                                                 default:
                                                     coords[0] = row;
                                                     coords[1] = col + places;
-                                                    System.out.println("row: "+row + "  col: " + col);
                                                     return coords;
                                             }
                                         } else {
@@ -93,7 +93,6 @@ public class Enemy {
                                                 default:
                                                     coords[0] = row + places;
                                                     coords[1] = col;
-                                                    System.out.println("row: "+row + "  col: " + col);
                                                     return coords;
                                             }
                                         } else {
@@ -116,7 +115,6 @@ public class Enemy {
                                                 default:
                                                     coords[0] = row;
                                                     coords[1] = col - places;
-                                                    System.out.println("row: "+row + "  col: " + col);
                                                     return coords;
                                             }
                                         } else {
@@ -147,24 +145,15 @@ public class Enemy {
     public void completeTurn() {
         boolean valid = false;
         while (valid == false) {
-            int[][] grid = adaShipConfig.getGrid();
-            int[] coords = getCoords(grid);
-            JButton button = adaShipConfig.getEnemyFiringPanel().getGridButtons()[coords[0]][coords[1]];
-            Timer timer = new Timer(2000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    fire(coords, button, grid);
-                }
-            });
+            // Timer for effect
+            Timer timer = new Timer(2000, this);
             timer.setRepeats(false);
             timer.start();
             valid = true;
         }
     }
    
-    public void fire(int[] coords, JButton button, int[][] grid) {
-        // Add a sleeper/timer
-        
+    public void fire(int[] coords, JButton button, int[][] grid) {        
         switch(grid[coords[0]][coords[1]]) {
             case AdaShipConfig.OCEAN:
                 button.setBackground(Color.white);
@@ -181,13 +170,21 @@ public class Enemy {
                 break;
         }
         if (!gameplay.checkWin(adaShipConfig.getFleet())) {
-            //next turn
+            // Next turn
             adaShipConfig.setGameState(AdaShipConfig.PLAYER_TURN);
         } else {
-            // Win
+            // Enemy Win
             adaShipConfig.setGameState(AdaShipConfig.ENEMY_WIN);
         }
         gameplay.endTurn();
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        grid = adaShipConfig.getGrid();
+        gridCoordinates = getCoords(grid);
+        buttonPressed = adaShipConfig.getEnemyFiringPanel().getGridButtons()[gridCoordinates[0]][gridCoordinates[1]];
+        
+        fire(gridCoordinates, buttonPressed, grid);
+    }
 }

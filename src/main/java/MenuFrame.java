@@ -1,9 +1,6 @@
 package main.java;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,93 +12,73 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MenuFrame extends JFrame {
-    private AdaShipConfig adaShipConfig;
+public class MenuFrame extends JFrame implements ActionListener{
     private JLabel label;
-    private JPanel menuPanel;
+    private JPanel menuPanel, buttonPanel;
+    private JButton newGameButton, exitButton;
+    private NewGame newGameMenu;
 
-    public Dimension getDimension(int width, int height) {
-        return new Dimension(width, height);
-    }
-
-    public FlowLayout getFlowLayout(int align, int hgap, int vgap) {
-        return new FlowLayout(align, hgap, vgap);
-    }
-
-    public BorderLayout getBorderLayout() {
-        return new BorderLayout();
-    }
-
-    public Font getFont(String name, int style, int size) {
-        return new Font(name, style, size);
-    }
-
-    public MenuFrame(AdaShipConfig adaShipConfig) {
-        this.adaShipConfig = adaShipConfig;
+    public MenuFrame() {
         menuPanel = new JPanel();
-        NewGame newGameMenu = new NewGame();
-        JPanel buttonPanel = new JPanel();
-        JButton newGame = new JButton();
-        JButton exit = new JButton();
+        newGameMenu = new NewGame();
+        buttonPanel = new JPanel();
+        newGameButton = new JButton();
+        exitButton= new JButton();
         label = new JLabel();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        getContentPane().setLayout(getFlowLayout(1, 0, 150));
+        getContentPane().setLayout(AdaShipConfig.getFlowLayout(1, 0, 150));
         setVisible(true);
         setTitle("AdaShip");
         setResizable(true);
         setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
-        getContentPane().setBackground(Color.cyan);
+        build();
+        pack();
+        setLocationRelativeTo(null);        
+    }
 
-        menuPanel.setPreferredSize(getDimension(500,500));
-        menuPanel.setLayout(getFlowLayout(1, 0, 30));
+    public void build() {
+        getContentPane().setBackground(Color.cyan);
+        menuPanel.setPreferredSize(AdaShipConfig.getDimension(500,500));
+        menuPanel.setLayout(AdaShipConfig.getFlowLayout(1, 0, 30));
         menuPanel.setBackground(Color.red);
-        label.setFont(getFont("Calibri", Font.PLAIN, 50));
+        label.setFont(AdaShipConfig.getFont("Calibri", Font.PLAIN, 50));
         label.setText("AdaShips");
 
-        buttonPanel.setLayout(getFlowLayout(1, 0, 40));
+        buttonPanel.setLayout(AdaShipConfig.getFlowLayout(1, 0, 40));
         buttonPanel.setBackground(Color.red);
-        buttonPanel.setPreferredSize(getDimension(400, 350));
+        buttonPanel.setPreferredSize(AdaShipConfig.getDimension(400, 350));
         
-        newGame.setText("New Game");
-        newGame.setFont(getFont("Calibiri", Font.BOLD, 20));
-        newGame.setBackground(Color.white);
-        newGame.setPreferredSize(getDimension(300, 50));
-        newGame.addActionListener(new ActionListener(){ // New buttonPressed class
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*dispose();
-                BoardFrame boardFrame = new BoardFrame(AdaShipConfig.getInstance());
-                boardFrame.render();*/
-                menuPanel.setVisible(false);
-                newGameMenu.setVisible(true);
-                
-            }
-            
-        });
+        newGameButton.setText("New Game");
+        newGameButton.setFont(AdaShipConfig.getFont("Calibiri", Font.BOLD, 20));
+        newGameButton.setBackground(Color.white);
+        newGameButton.setPreferredSize(AdaShipConfig.getDimension(300, 50));
+        newGameButton.addActionListener(this);
         
-        exit.setText("Exit");
-        exit.setFont(getFont("Calibri", Font.BOLD, 20));
-        exit.setBackground(Color.white);
-        exit.setPreferredSize(getDimension(300, 50));
-        exit.addActionListener(new ActionListener() {
+        exitButton.setText("Exit");
+        exitButton.setFont(AdaShipConfig.getFont("Calibri", Font.BOLD, 20));
+        exitButton.setBackground(Color.white);
+        exitButton.setPreferredSize(AdaShipConfig.getDimension(300, 50));
+        exitButton.addActionListener(this);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);                
-            }
-            
-        });
-
-        
-        buttonPanel.add(newGame);
-        buttonPanel.add(exit);
+        buttonPanel.add(newGameButton);
+        buttonPanel.add(exitButton);
         menuPanel.add(label);
         menuPanel.add(buttonPanel);
         getContentPane().add(menuPanel);
         getContentPane().add(newGameMenu);
-        pack();
-        setLocationRelativeTo(null);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == exitButton) {
+            System.exit(0);
+        } else if (e.getSource() == newGameButton) {
+            dispose();
+            BoardFrame boardFrame = new BoardFrame(AdaShipConfig.getInstance());
+            boardFrame.render();
+            // menuPanel.setVisible(false);
+            //newGameMenu.setVisible(true);
+        }
     }
 }
