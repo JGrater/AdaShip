@@ -14,6 +14,7 @@ public class Enemy implements ActionListener{
     private AdaShipConfig adaShipConfig;
     private Game gameplay;
     private Random rand;
+    private Timer timer;
     private int grid[][], gridCoordinates[];
     private JButton buttonPressed;
 
@@ -21,6 +22,7 @@ public class Enemy implements ActionListener{
         this.adaShipConfig = adaShipConfig;
         this.gameplay = game;
         rand = new Random();
+        timer = new Timer(2000, this);
     }
 
     public int[] getCoords(int[][] grid) {
@@ -146,7 +148,6 @@ public class Enemy implements ActionListener{
         boolean valid = false;
         while (valid == false) {
             // Timer for effect
-            Timer timer = new Timer(2000, this);
             timer.setRepeats(false);
             timer.start();
             valid = true;
@@ -166,7 +167,7 @@ public class Enemy implements ActionListener{
                 button.setEnabled(false);
                 grid[coords[0]][coords[1]] = AdaShipConfig.HIT;
                 adaShipConfig.setGrid(grid);
-                gameplay.recordHit(coords, adaShipConfig.getFleet());                
+                gameplay.recordTurn(coords, adaShipConfig.getFleet());
                 break;
         }
         if (!gameplay.checkWin(adaShipConfig.getFleet())) {

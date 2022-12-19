@@ -26,6 +26,8 @@ class AdaShipConfig {
 
     private FiringPanel shipPanel, enemyShipPanel;
 
+    private Game game;
+
     public AdaShipConfig(int board_rows, int board_cols) {
         AdaShipConfig.board_rows = board_rows;
         AdaShipConfig.board_cols = board_cols;
@@ -137,5 +139,13 @@ class AdaShipConfig {
 
     public void setEnemyFiringPanel(FiringPanel shipPanel) {
         this.enemyShipPanel = shipPanel;
+    }
+
+    public Game getGame() {
+        return this.game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

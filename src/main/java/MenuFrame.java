@@ -13,12 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MenuFrame extends JFrame implements ActionListener{
+    private Game game;
     private JLabel label;
     private JPanel menuPanel, buttonPanel;
     private JButton newGameButton, exitButton;
     private NewGame newGameMenu;
 
-    public MenuFrame() {
+    public MenuFrame(Game game) {
+        this.game = game;
         menuPanel = new JPanel();
         newGameMenu = new NewGame();
         buttonPanel = new JPanel();
@@ -31,13 +33,10 @@ public class MenuFrame extends JFrame implements ActionListener{
         setVisible(true);
         setTitle("AdaShip");
         setResizable(true);
-        setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
-        build();
-        pack();
-        setLocationRelativeTo(null);        
+        setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());      
     }
 
-    public void build() {
+    public void render() {
         getContentPane().setBackground(Color.cyan);
         menuPanel.setPreferredSize(AdaShipConfig.getDimension(500,500));
         menuPanel.setLayout(AdaShipConfig.getFlowLayout(1, 0, 30));
@@ -67,6 +66,8 @@ public class MenuFrame extends JFrame implements ActionListener{
         menuPanel.add(buttonPanel);
         getContentPane().add(menuPanel);
         getContentPane().add(newGameMenu);
+        pack();
+        setLocationRelativeTo(null);  
     }
 
     @Override
@@ -75,8 +76,7 @@ public class MenuFrame extends JFrame implements ActionListener{
             System.exit(0);
         } else if (e.getSource() == newGameButton) {
             dispose();
-            BoardFrame boardFrame = new BoardFrame(AdaShipConfig.getInstance());
-            boardFrame.render();
+            game.runGame();
             // menuPanel.setVisible(false);
             //newGameMenu.setVisible(true);
         }

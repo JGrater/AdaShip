@@ -17,7 +17,7 @@ public class FiringPressed implements ActionListener{
         this.buttonPressed = buttonPressed;
         this.grid = grid;
         adaShipConfig = AdaShipConfig.getInstance();
-        gameplay = new Game(adaShipConfig);
+        gameplay = adaShipConfig.getGame();
     }
 
     @Override
@@ -35,11 +35,11 @@ public class FiringPressed implements ActionListener{
                 buttonPressed.setEnabled(false);
                 grid[row][col] = AdaShipConfig.HIT;
                 adaShipConfig.setEnemyGrid(grid);
-                gameplay.recordHit(coords, adaShipConfig.getEnemyFleet());
+                gameplay.recordTurn(coords, adaShipConfig.getEnemyFleet());
                 break;
         }
         if (!gameplay.checkWin(adaShipConfig.getEnemyFleet())) {
-            // Next turn
+            // Next turn                
             adaShipConfig.setGameState(AdaShipConfig.ENEMY_TURN);
         } else {
             // Win

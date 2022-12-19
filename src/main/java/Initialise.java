@@ -3,15 +3,14 @@ package main.java;
 import java.io.FileNotFoundException;
 
 public class Initialise {
-    AdaShipConfig adaShipConfig;
-    MenuFrame menuFrame;
-    Game gameplay;
+    private AdaShipConfig adaShipConfig;
+    private Game game;
 
     public Initialise() {
         parseConfig();
         adaShipConfig = AdaShipConfig.getInstance();
-        this.gameplay = new Game(adaShipConfig);
-
+        this.game = new Game(adaShipConfig);
+        adaShipConfig.setGame(this.game);
     }
 
     public void parseConfig() {
@@ -28,12 +27,12 @@ public class Initialise {
 
     public void setup() {
         for (int i = 0; i < adaShipConfig.getFleet().size(); i++) {
-            gameplay.deployShip(adaShipConfig.getFleet().get(i), adaShipConfig.getGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
-            gameplay.deployShip(adaShipConfig.getEnemyFleet().get(i), adaShipConfig.getEnemyGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
+            game.deployShip(adaShipConfig.getFleet().get(i), adaShipConfig.getGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
+            game.deployShip(adaShipConfig.getEnemyFleet().get(i), adaShipConfig.getEnemyGrid(), adaShipConfig.getBoard_rows(), adaShipConfig.getBoard_cols());
         }
     }
 
     public void launch() {
-        menuFrame = new MenuFrame();
+        game.runMenu();
     }
 }
