@@ -4,7 +4,6 @@ public class AdaShip {
     public static void main(String args[]) {
         Initialise initialise = new Initialise();
         initialise.setup();
-        initialise.launch();
-        
+        initialise.launch(); 
     }
 }

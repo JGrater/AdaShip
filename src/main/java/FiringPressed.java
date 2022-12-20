@@ -35,7 +35,7 @@ public class FiringPressed implements ActionListener{
                 buttonPressed.setEnabled(false);
                 grid[row][col] = AdaShipConfig.HIT;
                 adaShipConfig.setEnemyGrid(grid);
-                gameplay.recordTurn(coords, adaShipConfig.getEnemyFleet());
+                gameplay.recordTurn(coords, adaShipConfig.getEnemyFleet());  
                 break;
         }
         if (!gameplay.checkWin(adaShipConfig.getEnemyFleet())) {

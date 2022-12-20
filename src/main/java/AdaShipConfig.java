@@ -16,6 +16,8 @@ class AdaShipConfig {
 
     static final int OCEAN = 0, SHIP = 1, HIT = 2, MISS = 4; // Add bombs/sharks...
 
+    static final String NORTH = "NORTH", SOUTH = "SOUTH", EAST = "EAST", WEST = "WEST";
+
     static final int NOT_STARTED = 0, PLAYER_TURN = 1, ENEMY_TURN = 2, WIN = 3, LOSS = 4, ENEMY_WIN = 4, ENEMY_LOSS = 3;
 
     static final Color OCEAN_COLOR = new Color(6,66,115), FIRING_COLOR = Color.cyan, BUTTON_COLOR = Color.black, HIT_COLOR = Color.red, MISS_COLOR = Color.white, SHIP_COLOR = Color.yellow;
@@ -34,8 +36,8 @@ class AdaShipConfig {
         AdaShipConfig.gameState = AdaShipConfig.NOT_STARTED;
         AdaShipConfig.grid = new int[board_rows][board_cols]; //Change back
         AdaShipConfig.enemyGrid = new int[board_rows][board_cols];
-        this.fleet = new ArrayList<>();
-        this.enemyFleet = new ArrayList<>();
+        fleet = new ArrayList<>();
+        enemyFleet = new ArrayList<>();
     }
 
     public static AdaShipConfig getInstance() {

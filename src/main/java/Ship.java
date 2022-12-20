@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Ship {
     private int health;
-    private String type;
+    private String type, direction;
     private boolean destroyed;
     private ArrayList<int[]> coords;
 
@@ -30,6 +30,14 @@ public class Ship {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDirection() {
+        return this.direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public boolean isDestroyed() {

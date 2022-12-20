@@ -11,7 +11,8 @@ import javax.swing.Timer;
 public class Game implements ActionListener{
     private Random rand;
     private Timer timer;
-    private final int UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4; 
+    private final String[] direction = {"NORTH", "SOUTH", "EAST", "WEST"};
+    private final int UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4;  
     private AdaShipConfig adaShipConfig;
     private Enemy enemy;
     private Player player;
@@ -28,7 +29,7 @@ public class Game implements ActionListener{
     }
 
     public void runMenu() {
-        menuFrame = new MenuFrame(this);
+        menuFrame = new MenuFrame();
         menuFrame.render();
     }
 
@@ -94,7 +95,7 @@ public class Game implements ActionListener{
         return win;
     }
     
-    public void deployShip(Ship ship, int[][] grid, int rows, int cols) {
+    public void deployShipRandom(Ship ship, int[][] grid, int rows, int cols) {
         boolean cont = true, emptySquare = true;
         int direction, x, y; // Col , Row
 
@@ -170,6 +171,81 @@ public class Game implements ActionListener{
                 } 
             }
         }
+    }
+
+    public boolean deployShip(Ship ship, int[][] grid, int rows, int cols, int x, int y, String direction) {
+        boolean emptySquare = true;
+
+        if (direction.equalsIgnoreCase(AdaShipConfig.NORTH)) {
+            if (y + ship.getHealth() <= rows-1) {
+                for (int i = y; i < y + ship.getHealth(); i++) {
+                    if (grid[i][x] != AdaShipConfig.OCEAN) {
+                        emptySquare = false;
+                    }
+                }
+                if (emptySquare) {
+                    for (int i = y; i < y + ship.getHealth(); i++) {
+                        grid[i][x] = AdaShipConfig.SHIP;
+                        int[] coords = {i,x};
+                        ship.addCoords(coords);
+                        ship.setDirection(AdaShipConfig.NORTH);
+                    }
+                    return true;
+                }
+            }
+        } else if (direction.equalsIgnoreCase(AdaShipConfig.SOUTH)) {
+            if (y - ship.getHealth() >= 0) {
+                for (int i = y; i > y - ship.getHealth(); i--) {
+                    if (grid[i][x] != AdaShipConfig.OCEAN) {
+                        emptySquare = false;
+                    }
+                }
+                if (emptySquare) {
+                    for (int i = y; i > y - ship.getHealth(); i--) {
+                        grid[i][x] = AdaShipConfig.SHIP;
+                        int[] coords = {i,x};
+                        ship.addCoords(coords);
+                        ship.setDirection(AdaShipConfig.SOUTH);
+                    }
+                    return true;
+                }
+            }
+        } else if (direction.equalsIgnoreCase(AdaShipConfig.WEST)) {
+            if (x + ship.getHealth() <= cols-1) {
+                for (int i = x; i < x + ship.getHealth(); i++) {
+                    if (grid[y][i] != AdaShipConfig.OCEAN) {
+                        emptySquare = false;
+                    }
+                }
+                if (emptySquare) {
+                    for (int i = x; i < x + ship.getHealth(); i++) {
+                        grid[y][i] = AdaShipConfig.SHIP;
+                        int[] coords = {y,i};
+                        ship.addCoords(coords);
+                        ship.setDirection(AdaShipConfig.WEST);
+                    }
+                    return true;
+                }
+            }
+        } else if (direction.equalsIgnoreCase(AdaShipConfig.EAST)) {
+            if (x - ship.getHealth() >= 0) {
+                for (int i = x; i > x - ship.getHealth(); i--) {
+                    if (grid[y][i] != AdaShipConfig.OCEAN) {
+                        emptySquare = false;
+                    }
+                }
+                if (emptySquare) {
+                    for (int i = x; i > x - ship.getHealth(); i--) {
+                        grid[y][i] = AdaShipConfig.SHIP;
+                        int[] coords = {y,i};
+                        ship.addCoords(coords);
+                        ship.setDirection(AdaShipConfig.EAST);
+                    }
+                    return true;
+                }
+            } 
+        }
+        return false;
     }
 
     @Override

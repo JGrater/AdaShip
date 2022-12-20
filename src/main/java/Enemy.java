@@ -167,7 +167,9 @@ public class Enemy implements ActionListener{
                 button.setEnabled(false);
                 grid[coords[0]][coords[1]] = AdaShipConfig.HIT;
                 adaShipConfig.setGrid(grid);
-                gameplay.recordTurn(coords, adaShipConfig.getFleet());
+                if (!gameplay.checkWin(adaShipConfig.getFleet())) {
+                    gameplay.recordTurn(coords, adaShipConfig.getFleet());
+                }
                 break;
         }
         if (!gameplay.checkWin(adaShipConfig.getFleet())) {

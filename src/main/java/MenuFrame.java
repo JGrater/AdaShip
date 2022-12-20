@@ -13,16 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MenuFrame extends JFrame implements ActionListener{
-    private Game game;
     private JLabel label;
     private JPanel menuPanel, buttonPanel;
     private JButton newGameButton, exitButton;
     private NewGame newGameMenu;
 
-    public MenuFrame(Game game) {
-        this.game = game;
+    public MenuFrame() {
         menuPanel = new JPanel();
-        newGameMenu = new NewGame();
+        newGameMenu = new NewGame(this);
         buttonPanel = new JPanel();
         newGameButton = new JButton();
         exitButton= new JButton();
@@ -75,10 +73,8 @@ public class MenuFrame extends JFrame implements ActionListener{
         if (e.getSource() == exitButton) {
             System.exit(0);
         } else if (e.getSource() == newGameButton) {
-            dispose();
-            game.runGame();
-            // menuPanel.setVisible(false);
-            //newGameMenu.setVisible(true);
+            menuPanel.setVisible(false);
+            newGameMenu.setVisible(true);
         }
     }
 }
