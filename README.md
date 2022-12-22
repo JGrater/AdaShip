@@ -10,6 +10,7 @@ The assignment was to create an adaptation of the classic paper-based Battleship
 
 ### My solution
 #### UML Diagram
+![AdaShip](https://user-images.githubusercontent.com/119420246/209119325-d183efa1-93ad-4167-91d0-053401f598c9.jpg)
 
 #### Approach
 My approach to challenge will be to break it down, into smaller tasks that can be worked on individually. Starting with outlining the classes as shown on my UML diagram, and then developing the game further. I would first focus all efforts on completing the turn-based gameplay design and implementation. Next developing the computer based opponent and finishing with the set-up interface. After finshing each task I will go over what I have added and refactor my code, applying the high standards required. Upon finishing my solution I will go over the code and comment, explaining the uses of certain classes and functions. Testing will be constant throughout.
@@ -26,6 +27,7 @@ Whilst designing the board and implementing a simple console version, I decided 
 
 ### Phase 3: Computer Opponent
 When turn-based gameplay was implemented, I could then work on developing the computer opponent. I started with using generating a random number for the coordinates, and tested to make sure the turn-based gameplay was working properly. I then designed a logical flowchart that I could use to make the computer play strategically. I was able to implement the flowchart and improve on the opponents thought process.
+![Opponent](https://user-images.githubusercontent.com/119420246/209119364-e5fefa5d-aff5-4b58-b09d-6b315bd6b795.jpg)
 
 ### Phase 4: Menu Design Development
 The menu design was incredibly simple, consisting of just buttons and text. I was able to re-use objects from the board design such as frames and panels. Using inheritance I created child classes from these objects, making the classes more efficient and reducing repitition. However, I was unable to fully complete one of my tasks due to time constraints, forcing players to only play randomly placed ships.
@@ -34,3 +36,8 @@ The menu design was incredibly simple, consisting of just buttons and text. I wa
 A key design challenge was switching to an interactive interface and combining practices of advanced programming with the external objects and methods needed to produce frames, panels and buttons. This resulted in lots of testing and refactoring in order to produce 'good' well maintainable and efficient code. An interactive interface also presented problems with accessing the other players' grids and buttons in order to change their colours and record hits/misses. Using a singleton pattern helped me access update and access these objects from anywhere in the system.
 
 ## Evaluation
+In order to reduce repitition with creating objects, such as the Grids and Menu Panels, I created their own classes which could extend from the corresponding object. This allowed me to declare required variables once in its constructor, and set its properties on instantiation of the class. This was also necessary for working with an array of panels, where each had to share the same layout, but with differing values.
+
+An implementation of advanced programming would be the working use of a singleton design pattern which is a key to the functioning of the system.The singleton design pattern allowed for the setup and storage of important values such as the board length and width, the players' grid, and their fleets. The singleton class allowed me to access these values and objects from anywhere in code, without having to pass the instance through each class and object.
+
+If given more time, I could improve on the menu and interface. Completing the placement of ships and improving the process by allowing players to choose positions on a grid, rather than inputting coordinates and directions manually. I would also try to develop new gamemodes and introduce a theme, such as pirates, adding textures and improved interactions.
