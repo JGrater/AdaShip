@@ -4,9 +4,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+// The listener for the players turn
 public class FiringPressed implements ActionListener{
-    private int row, col;
-    private int[][] grid;
+    private int row, col, grid[][];
     private AdaShipConfig adaShipConfig;
     private JButton buttonPressed;
     private Game gameplay;
@@ -20,6 +20,8 @@ public class FiringPressed implements ActionListener{
         gameplay = adaShipConfig.getGame();
     }
 
+    // Listener method checks the outcome, updating the players firing grid with the correct colour
+    // Also records the play and completes the turn by changing the game state
     @Override
     public void actionPerformed(ActionEvent e) {
         int[] coords = {row, col};

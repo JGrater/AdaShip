@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 
+// A firing panel object, a grid with buttons
 public class FiringPanel extends JPanel {
     private JPanel gridPanels[][];
     private JButton gridButtons[][];
@@ -26,11 +27,18 @@ public class FiringPanel extends JPanel {
         setPreferredSize(AdaShipConfig.getDimension(530, 525));
         setBackground(background);
     }
+    
+    // Returns the grid
+    public int[][] getGrid() {
+        return this.grid;
+    }
 
+    // Returns the grid buttons for the enemy to access
     public JButton[][] getGridButtons() {
         return this.gridButtons;
     }
 
+    // Disables all buttons for the players turn end
     public void disableButtons() {
         for (int row = 0; row < this.rows; row++) {
             for (int col = 0; col < this.cols; col++) {
@@ -39,6 +47,7 @@ public class FiringPanel extends JPanel {
         }
     }
 
+    // Enables the ocean buttons for the players turn
     public void enableButtons() {
         for (int row = 0; row < this.rows; row++) {
             for (int col = 0; col < this.cols; col++) {
@@ -49,10 +58,8 @@ public class FiringPanel extends JPanel {
         }
     }
 
-    public int[][] getGrid() {
-        return this.grid;
-    }
-
+    // Builds the grid, an array of panels and buttons 
+    // Setting the colours to the ones provided
     public void build() {
         for (int row = 0; row < this.rows; row++) {
             for (int col = 0; col < this.cols; col++) {                

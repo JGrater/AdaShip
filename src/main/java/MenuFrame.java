@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Toolkit;
 
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,9 +17,10 @@ public class MenuFrame extends JFrame implements ActionListener{
     private JButton newGameButton, exitButton;
     private NewGame newGameMenu;
 
-    public MenuFrame() {
+    // The starting menu, leads to the new game menu
+    public MenuFrame(AdaShipConfig adaShipConfig) {
         menuPanel = new JPanel();
-        newGameMenu = new NewGame(this);
+        newGameMenu = new NewGame(this, adaShipConfig);
         buttonPanel = new JPanel();
         newGameButton = new JButton();
         exitButton= new JButton();
@@ -34,30 +34,38 @@ public class MenuFrame extends JFrame implements ActionListener{
         setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());      
     }
 
+    // Displays the menu frame components
+    // Includes a cyan background and a red menu panel with title, new game button and exit button
     public void render() {
         getContentPane().setBackground(Color.cyan);
         menuPanel.setPreferredSize(AdaShipConfig.getDimension(500,500));
         menuPanel.setLayout(AdaShipConfig.getFlowLayout(1, 0, 30));
         menuPanel.setBackground(Color.red);
+
+        //Title
         label.setFont(AdaShipConfig.getFont("Calibri", Font.PLAIN, 50));
         label.setText("AdaShips");
 
+        // Button panel
         buttonPanel.setLayout(AdaShipConfig.getFlowLayout(1, 0, 40));
         buttonPanel.setBackground(Color.red);
         buttonPanel.setPreferredSize(AdaShipConfig.getDimension(400, 350));
         
+        // New Game button
         newGameButton.setText("New Game");
         newGameButton.setFont(AdaShipConfig.getFont("Calibiri", Font.BOLD, 20));
         newGameButton.setBackground(Color.white);
         newGameButton.setPreferredSize(AdaShipConfig.getDimension(300, 50));
         newGameButton.addActionListener(this);
         
+        // Exit button
         exitButton.setText("Exit");
         exitButton.setFont(AdaShipConfig.getFont("Calibri", Font.BOLD, 20));
         exitButton.setBackground(Color.white);
         exitButton.setPreferredSize(AdaShipConfig.getDimension(300, 50));
         exitButton.addActionListener(this);
 
+        // Add components to frame
         buttonPanel.add(newGameButton);
         buttonPanel.add(exitButton);
         menuPanel.add(label);
@@ -68,6 +76,8 @@ public class MenuFrame extends JFrame implements ActionListener{
         setLocationRelativeTo(null);  
     }
 
+    // Listens to buttons being pressed
+    // New game button switches panels for the new game menu class
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exitButton) {

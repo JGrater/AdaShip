@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+// The config file parser
 public class FileParser {
 
     private File fileToParse;
@@ -19,8 +20,8 @@ public class FileParser {
         return Integer.parseInt(str);
     }
 
+    // Reads in the configuration file, splits data up and stores the different values in the singleton class
     public void readConfig() {
-
         AdaShipConfig adaShipConfig = AdaShipConfig.getInstance();
 
         try {

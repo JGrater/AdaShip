@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.Timer;
 
+// The enemy computer opponent
 public class Enemy implements ActionListener{
     private AdaShipConfig adaShipConfig;
     private Game gameplay;
@@ -25,6 +26,8 @@ public class Enemy implements ActionListener{
         timer = new Timer(2000, this);
     }
 
+    // Chooses the coordinates strategically
+    // Consult flowchart for explanation
     public int[] getCoords(int[][] grid) {
         int[] coords = {rand.nextInt(adaShipConfig.getBoard_rows()), rand.nextInt(adaShipConfig.getBoard_cols())};
         boolean valid = false, validDirection = true;
@@ -132,6 +135,7 @@ public class Enemy implements ActionListener{
                 }
             } 
         }
+        // Checks random coordinates haven't already been played
         while (valid == false) {
             if (grid[coords[0]][coords[1]] != AdaShipConfig.HIT && grid[coords[0]][coords[1]] != AdaShipConfig.MISS) {
                 valid = true;
@@ -143,17 +147,16 @@ public class Enemy implements ActionListener{
         return coords;
     }
     
-
+    // Runs the timer 
+    // Timer for effect
     public void completeTurn() {
-        boolean valid = false;
-        while (valid == false) {
-            // Timer for effect
-            timer.setRepeats(false);
-            timer.start();
-            valid = true;
-        }
+        timer.setRepeats(false);
+        timer.start();
     }
    
+    // Fire method checks the outcome, updating the players fleet grid with the correct colour
+    // Also records the play and completes the turn by changing the game state
+    // Similar to the implemented method in FiringPressed class
     public void fire(int[] coords, JButton button, int[][] grid) {        
         switch(grid[coords[0]][coords[1]]) {
             case AdaShipConfig.OCEAN:
@@ -173,7 +176,7 @@ public class Enemy implements ActionListener{
                 break;
         }
         if (!gameplay.checkWin(adaShipConfig.getFleet())) {
-            // Next turn
+            // Players turn
             adaShipConfig.setGameState(AdaShipConfig.PLAYER_TURN);
         } else {
             // Enemy Win
@@ -182,6 +185,7 @@ public class Enemy implements ActionListener{
         gameplay.endTurn();
     }
 
+    // Once timer is finished, this code is performed
     @Override
     public void actionPerformed(ActionEvent e) {
         grid = adaShipConfig.getGrid();

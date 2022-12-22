@@ -8,10 +8,10 @@ import java.util.Random;
 
 import javax.swing.Timer;
 
+// Gameplay class, functions the turn-based gameplay using state design pattern
 public class Game implements ActionListener{
     private Random rand;
     private Timer timer;
-    private final String[] direction = {"NORTH", "SOUTH", "EAST", "WEST"};
     private final int UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4;  
     private AdaShipConfig adaShipConfig;
     private Enemy enemy;
@@ -28,16 +28,20 @@ public class Game implements ActionListener{
         timer.setRepeats(false);
     }
 
+    // Renders the menu frame
     public void runMenu() {
-        menuFrame = new MenuFrame();
+        menuFrame = new MenuFrame(adaShipConfig);
         menuFrame.render();
     }
 
+    // Renders the board frame
     public void runGame() {
         boardFrame = new BoardFrame(this.adaShipConfig);
         boardFrame.render();
     }
 
+    // Checks the current game state, called at the end of each turn
+    // Allows for turn-based gameplay
     public void endTurn() {
         switch(adaShipConfig.getGameState()) {
             case AdaShipConfig.PLAYER_TURN:
@@ -57,6 +61,7 @@ public class Game implements ActionListener{
         }
     }
 
+    // Records the turns played and displays the correct pop-up message for one second
     public void recordTurn(int[] coords, ArrayList<Ship> fleet) {
         for (int i = 0; i < fleet.size(); i++) {
             if (fleet.get(i).checkHit(coords)) {
@@ -81,6 +86,7 @@ public class Game implements ActionListener{
         }
     }
 
+    // Returns true if all of the given fleets ships have been sunk
     public boolean checkWin(ArrayList<Ship> fleet) {
         boolean win = false;
         int destroyedShips = 0;
@@ -95,6 +101,8 @@ public class Game implements ActionListener{
         return win;
     }
     
+    // Deploys ships with random starting coordinates and facing directions
+    // Checks their lengths fit against the borders of the board
     public void deployShipRandom(Ship ship, int[][] grid, int rows, int cols) {
         boolean cont = true, emptySquare = true;
         int direction, x, y; // Col , Row
@@ -173,6 +181,9 @@ public class Game implements ActionListener{
         }
     }
 
+    // UNFINISHED
+    // A manual re-work of the method above
+/* 
     public boolean deployShip(Ship ship, int[][] grid, int rows, int cols, int x, int y, String direction) {
         boolean emptySquare = true;
 
@@ -247,7 +258,9 @@ public class Game implements ActionListener{
         }
         return false;
     }
+*/
 
+    // Hides the pop-up message after one second
     @Override
     public void actionPerformed(ActionEvent e) {
         boardFrame.hideMessage();

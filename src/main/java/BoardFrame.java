@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
 
+// The Board frame class, the main game
 public class BoardFrame extends JFrame implements ActionListener{
     private AdaShipConfig adaShipConfig;
     private FiringPanel firingPanel, enemyFiringPanel;
@@ -37,6 +38,7 @@ public class BoardFrame extends JFrame implements ActionListener{
         adaShipConfig.setFiringPanel(firingPanel);
         adaShipConfig.setEnemyFiringPanel(enemyFiringPanel);
         
+        // Frame/window properties
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(AdaShipConfig.getBorderLayout());
         setVisible(true);
@@ -45,6 +47,8 @@ public class BoardFrame extends JFrame implements ActionListener{
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
+    // Creates a new pop-up message using the text provided
+    // If its a win/lose message the positioning is different
     public void message(String text) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         messageLabel.setText(text);
@@ -59,30 +63,38 @@ public class BoardFrame extends JFrame implements ActionListener{
         popup.show();
     }
 
+    // Hides theh pop-up message
     public void hideMessage() {
         popup.hide();
     }
 
+    // Displays the main board
+    // Includes, a header with title, a firing grid, a fleet grid, and a footer with an exit button
     public void render() {
+        // Title
         header.setLayout(AdaShipConfig.getBorderLayout());
         header.setPreferredSize(AdaShipConfig.getDimension(1070, 50));
         title.setText("AdaShip");
         title.setFont(AdaShipConfig.getFont("Calibri", Font.PLAIN, 30));
         header.add(title, BorderLayout.CENTER);
 
+        // Your firing panel / Enemies fleet panel
         firingPanel.setLayout(AdaShipConfig.getFlowLayout(1, -5, -5));
         firingPanel.setPreferredSize(AdaShipConfig.getDimension(530, 525));
         firingPanel.setBackground(AdaShipConfig.FIRING_COLOR);
 
+        // Your fleet panel / Enemies firing panel
         enemyFiringPanel.setLayout(AdaShipConfig.getFlowLayout(1, -5, -5));
         enemyFiringPanel.setPreferredSize(AdaShipConfig.getDimension(530, 525));
         enemyFiringPanel.setBackground(AdaShipConfig.OCEAN_COLOR);
 
+        // Pop-up message text
         messageLabel.setFont(AdaShipConfig.getFont("Calibri", Font.BOLD, 50));
         messageLabel.setForeground(AdaShipConfig.FIRING_COLOR);
         messagePanel.setBackground(AdaShipConfig.BUTTON_COLOR);
         messagePanel.add(messageLabel);
 
+        // Exit button
         exitButton.setText("Exit");
         exitButton.setFont(AdaShipConfig.getFont("Calibri", Font.BOLD, 20));
         exitButton.setBackground(AdaShipConfig.MISS_COLOR);
@@ -94,6 +106,7 @@ public class BoardFrame extends JFrame implements ActionListener{
         firingPanel.build();
         enemyFiringPanel.build();
 
+        // Adds to components to frame
         add(firingPanel, BorderLayout.WEST);
         add(enemyFiringPanel, BorderLayout.EAST);
         add(header, BorderLayout.NORTH);
@@ -102,6 +115,7 @@ public class BoardFrame extends JFrame implements ActionListener{
         setLocationRelativeTo(null);              
     }
 
+    // Listens for the exit button being pressed, will take player back to the start menu
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exitButton) {

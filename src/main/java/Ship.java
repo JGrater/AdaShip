@@ -3,6 +3,7 @@ package main.java;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// Ship object, makes up the fleet array list
 public class Ship {
     private int health;
     private String type, direction;
@@ -16,6 +17,7 @@ public class Ship {
         this.coords = new ArrayList<>();
     }
 
+    // Getters and Setters
     public int getHealth() {
         return this.health;
     }
@@ -52,16 +54,12 @@ public class Ship {
         return this.coords;
     }
 
+    // Adds coords to an array of length equal to ships size/health
     public void addCoords(int[] coord) {
         this.coords.add(coord);
     }
 
-    public void displayCoords() {
-        for(int i = 0; i < this.coords.size(); i++) {
-            System.out.println("Row: "+this.coords.get(i)[0]+ "       Col: " +this.coords.get(i)[1]);
-        }
-    }
-
+    // Returns true if the given coordinates lie on the ships position/tile, and lowers the ships health by one
     public boolean checkHit(int[] coords) {
         boolean hit = false;
         for(int i = 0; i < this.coords.size(); i++) {
@@ -73,6 +71,7 @@ public class Ship {
         return hit;
     }
 
+    // Returns true if the ship is at 0 health, and sets destroyed to true
     public boolean checkDestroyed() {
         if (this.health == 0) {
             this.destroyed = true;
